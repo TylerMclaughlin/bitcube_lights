@@ -1,0 +1,6 @@
+float get(int x, int y)
+{
+    vec2 uv = vUV.st + vec2(x,y)*uTD2DInfos[0].res.xy;
+
+    return texture(sTD2DInputs[0], uv).r;
+}
