@@ -1,0 +1,16 @@
+float get(int x, int y)
+{
+    vec2 uv = vUV.st + vec2(x,y)*uTD2DInfos[0].res.xy;
+    if (uv.x < 0){
+        uv.x = uv.x + 1;
+    }else if (uv.x > 1){
+        uv.x = uv.x - 1;
+    }
+    if (uv.y < 0){
+        uv.y = uv.y + 1;
+    }else if (uv.y > 1){
+        uv.y = uv.y - 1;
+    }
+    return texture(sTD2DInputs[0], uv).r;
+}
+
