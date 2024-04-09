@@ -13,9 +13,9 @@ The second project was controlling the BitCube's lights with a MIDI piano keyboa
 
 Using base shader code is nice for building dynamical interacting systems between pixels and running it on the GPU. But this coding language can be tedious to work with, and it's hard to try out higher-order transformations.
 
-I use Python's `itertools` for combinatorics and `NumPy` for stochastics and random number functions to "print" complex GLSL code.  Can be regenerated and different.
+I use Python's `itertools` for combinatorics and `NumPy` for stochastics and random number functions to "print" complex GLSL code.  The output can be regenerated and randomized differently every time.
 
-My first test of this was making families of arbitrarily complex cellular automata.  These can be extended to more interesting discrete dynamical systems, i.e., anything involving nodes interacting with the state of other (neighboring or distant) nodes.  
+My first test of this was to make families of arbitrarily complex cellular automata.  These can be extended to more interesting discrete dynamical systems, i.e., anything involving nodes interacting with the state of other (neighboring or distant) nodes.  
 
 Here's an example of the shader code output by the Python program (hundreds of lines long, so this is just a shortened version).  Such repetitive conditional expressions would be impossible tweak, manage, or edit in a systematic way.
 
