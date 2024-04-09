@@ -1,29 +1,40 @@
-# Bitcube_lights
+# Bitcube lights
 
-Using Python to generate complex GLSL pixel shader code for the Bitcube installation and controlling the lights with a MIDI piano keyboard.
+Two small projects for programming the BitCube, a climbable, multi-story LED art installation.
+
+The first project is using Python to generate complex GLSL pixel shader code for the BitCube's 288 lights.
+
+The second project was controlling the BitCube's lights with a MIDI piano keyboard.
 
 
 ## Generative GLSL
 
-Using base shader code is nice for building dynamical interacting systems between pixels and running it on the GPU. But this coding language can be tedious to work with, and harder to try out higher-order transformations.
+"Write decent code that generates terrible code" -- my bio-inspired philosophy for creative coding projects.
 
-I use Python's `itertools` for combinatorics and `NumPy` for stochastics and random number functions to generate complex GLSL code.  
+Using base shader code is nice for building dynamical interacting systems between pixels and running it on the GPU. But this coding language can be tedious to work with, and it's hard to try out higher-order transformations.
 
-My first test of this was making a arbitrarily complex cellular automata, which can be extended to more interesting systems involving nodes interacting with the state of neighboring or distant nodes.
+I use Python's `itertools` for combinatorics and `NumPy` for stochastics and random number functions to "print" complex GLSL code.  Can be regenerated and different.
 
-Here's an example of the shader code output by the Python program (hundreds of lines long, so this is just a shortened version).  Such repetitive conditional expressions would be impossible tweak, keep track of, or edit in a systematic way.
+My first test of this was making families of arbitrarily complex cellular automata.  These can be extended to more interesting discrete dynamical systems, i.e., anything involving nodes interacting with the state of other (neighboring or distant) nodes.  
+
+Here's an example of the shader code output by the Python program (hundreds of lines long, so this is just a shortened version).  Such repetitive conditional expressions would be impossible tweak, manage, or edit in a systematic way.
 
 ```GLSL
 void main()
 {
+    # get the current state at 5 different nodes, each specified by a relative (x,y) coordinate
     float A = get(0, 3);
     float B = get(-1, 2);
     float C = get(0, -5);
     float D = get(1, 1);
     float E = get(-4, 4);
 
+    # r represents the output value of each pixel
+    # initialize it.
     float r = 0.0;
 
+    # change the pixels based on the multi-state of the 5 input nodes.
+    # since this is shader code, it specifies what EVERY pixel should be doing, in parallel.
     if (A == 0.0 && B == 0.0 && C == 0.0 && D == 0.0 && E == 0.0){
         r = 0.25;
     }else if (A == 0.0 && B == 0.0 && C == 0.0 && D == 0.0 && E == 0.25){
@@ -71,3 +82,6 @@ void main()
 ```
 
 ## MIDI reactivity
+
+For MIDI control of the bitcube, I came up with a mapping from the 88 keys on a piano to the 224 lights.  
+Each row is a different octave. The rows are 28 cubes wide, so I made each of the 12 notes two cubes wide, except for the 4 notes that spanning the corners; those were 3 cubes long.  The patch is velocity sensitive, so playing louder will affect the brightness.
